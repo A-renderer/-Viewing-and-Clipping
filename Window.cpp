@@ -6,6 +6,8 @@ Window::Window() {
 	e.push_back(Point(2,102));
 	e.push_back(Point(102,102));
 	e.push_back(Point(102,2));
+
+	square = Polygon(e);
 }
 
 Point Window::getMidPoint() {

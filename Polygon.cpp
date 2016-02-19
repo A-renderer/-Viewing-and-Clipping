@@ -4,19 +4,9 @@ Polygon::Polygon() {
 	n = 0;
 }
 
-Polygon::Polygon(string str) {
-	if (str.compare("kapal")==0) {
-		e.push_back(Point (20,70));
-		e.push_back(Point (50,70));
-		e.push_back(Point (50,140));
-		e.push_back(Point (20,140));
-	}
-}
-
 Polygon::Polygon(vector<Point> P) {
 	n = P.size();
 	e = P;
-	e.push_back(e[0]); //harus balik ke titik awal
 }
 
 Polygon& Polygon::operator<<(const vector<Point>& P) {
