@@ -19,7 +19,9 @@ class Window {
 		Window();
 		Point getMidPoint();
 		Point getTopLeft();
+		Point getTopRight();
 		Point getBottomRight();
+		Point getBottomLeft();
 };
 
 #endif
