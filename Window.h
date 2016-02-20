@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#define INSIDE 0000	//0000
+#define INSIDE 0	//0000
 #define LEFT 1		//0001
 #define RIGHT 2		//0010
 #define BOTTOM 4	//0100
