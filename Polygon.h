@@ -43,6 +43,10 @@ public:
 
 	void scale(float size);
 
+	void zoomIn(float k);
+
+	void zoomOut(float k);
+
 	int n; //jumlah titik
 	vector<Point> e; //titik2 poligon
 	Point firePoint;

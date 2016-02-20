@@ -198,3 +198,24 @@ void Polygon::scale(float size) {
         e[i].y = e[i].y*size;
     }
 }
+
+void Polygon::zoomIn(float k){
+	int i;
+	int midX = getMidX();
+	int midY = getMidY();
+
+	for(i=0; i<e.size(); i++) {
+		e[i].x = (e[i].x - midX) * k + midX;
+		e[i].y = (e[i].y - midY) * k + midY;
+	}
+}
+void Window::zoomOut(float k){
+	int i;
+	int midX = getMidX();
+	int midY = getMidY();
+
+	for(i=0;i<e.size();i++) {
+		e[i].x = (e[i].x - midX) / k + midX;
+		e[i].y = (e[i].y - midY) / k + midY;
+	}
+}
