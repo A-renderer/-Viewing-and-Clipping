@@ -46,12 +46,29 @@ Polygon matrixToPolygon(int object[][2], int col) {
 	return Polygon(points);
 }
 
+Polygon map_border = matrixToPolygon(border,sizeof(border)/sizeof(*border));
 Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
 Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
 
 void drawMap() {
+	FB.drawPolygon(map_border,0, 255, 255,0);
 	FB.drawPolygon(p_sumatra,255,255,0,0);
 	FB.drawPolygon(p_kalimantan,255,255,0,0);
+}
+
+void move(int key) {
+	//IF KEY LALALALAAAAAA (up, down, right, left, zoom in, zoom out)
+	/*else*/if(key=='q'){
+		quit=true;
+		system("clear");
+	}
+	system("clear");
+
+	//menggambar ulang peta
+	drawMap();
+
+	//menggambar ulang window
+	//FB.drawWindow(window,250,250,250,0);
 }
 
 int main() {
@@ -59,11 +76,6 @@ int main() {
 	map.push_back(p_kalimantan);
 
 	system("clear");
-
-	FB.drawLine(Point(0,0), Point(0,400), 255, 255, 0,0);
-	FB.drawLine(Point(0,0), Point(599,0), 255, 255, 0,0);
-	FB.drawLine(Point(599,0), Point(599,400), 255, 255, 0,0);
-	FB.drawLine(Point(0,400), Point(599,400), 255, 255, 0,0);
 
 	drawMap();
 
@@ -73,7 +85,7 @@ int main() {
 			//PANGGIL FUNGSI UNTUK REDRAW MOVEMENT
 		}
 		else {
-			FB.drawWindow(window,0,250,250,0);
+			//FB.drawWindow(window,250,250,250,0);
 		}
 	}
 
