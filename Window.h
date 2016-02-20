@@ -25,6 +25,7 @@ class Window {
 		int computeEndpoint(Point P);
 		void lineClipping(Line line);
 		void polygonClipping(Polygon P);
+		void clipAllPolygon(vector<Polygon> pols);
 };
 
 #endif

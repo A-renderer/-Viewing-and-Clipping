@@ -3,9 +3,9 @@
 Window::Window() {
 	vector<Point> e;
 	e.push_back(Point(2,2));
-	e.push_back(Point(2,102));
-	e.push_back(Point(102,102));
-	e.push_back(Point(102,2));
+	e.push_back(Point(2,152));
+	e.push_back(Point(152,152));
+	e.push_back(Point(152,2));
 
 	square = Polygon(e);
 }
@@ -55,7 +55,7 @@ void Window::lineClipping(Line line) {
 	int endPoint2 = computeEndpoint(line.dest);
 	bool valid = false;
 
-	for (;;) {
+	while (true) {
 		if (!(endPoint1|endPoint2)) { //kedua titik line didalam (0000)
 			valid = true;
 			break;
@@ -88,14 +88,25 @@ void Window::lineClipping(Line line) {
 				endPoint2 = computeEndpoint(line.dest);
 			}
 		}
-		if (valid) {
-			lines.push_back(line);
-		}
+
+	}
+	if (valid) {
+		lines.push_back(line);
 	}
 }
 
 void Window::polygonClipping(Polygon P) {
 	for(int j=0; j<P.e.size()-1; j++) {
 		lineClipping(Line(Point(P.e[j].x,P.e[j].y),Point(P.e[j+1].x,P.e[j+1].y)));
+	}
+	lineClipping(Line(Point(P.e[P.e.size()-1].x,P.e[P.e.size()-1].y),Point(P.e[0].x,P.e[0].y)));
+}
+
+void Window::clipAllPolygon(vector<Polygon> pols) {
+	int c = 1;
+	if(!pols.empty()) {
+		for(int i=0; i<pols.size(); i++) {
+			polygonClipping(pols[i]);
+		}
 	}
 }
