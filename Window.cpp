@@ -34,18 +34,68 @@ int Window::computeEndpoint(Point P) {
 	int result = INSIDE;
  
 	if (P.x < getTopLeft().x) {
-		result = LEFT;
+		result = result|LEFT;
 	}
 	else if (P.x > getBottomRight().x)  {
-		result = RIGHT;
+		result = result|RIGHT;
 	}
 
 	if (P.y < getTopLeft().y) {
-		result = TOP;
+		result = result|BOTTOM;
 	}
 	else if (P.y > getBottomRight().y) {
-		result = BOTTOM;
+		result = result|TOP;
 	}
  
 	return result;
+}
+
+void Window::lineClipping(Line line) {
+	int endPoint1 = computeEndpoint(line.src);
+	int endPoint2 = computeEndpoint(line.dest);
+	bool valid = false;
+
+	for (;;) {
+		if (!(endPoint1|endPoint2)) { //kedua titik line didalam (0000)
+			valid = true;
+			break;
+		} else if (endPoint1 & endPoint2) { //dua2 diluar
+			break;
+		} else {
+			float x, y;
+			int point = endPoint1 ? endPoint1 : endPoint2;
+			if (point & TOP) {
+				x = line.src.x + (line.dest.x - line.src.x) * (getBottomRight().y - line.src.y) / (line.dest.y - line.src.y);
+				y = getBottomRight().y;
+			} else if (point & BOTTOM) {
+				x = line.src.x + (line.dest.x - line.src.x) * (getTopLeft().y - line.src.y) / (line.dest.y - line.src.y);
+				y = getTopLeft().y;
+			} else if (point & RIGHT) {
+				y = line.src.y + (line.dest.y - line.src.y) * (getBottomRight().x - line.src.x) / (line.dest.x - line.src.x);
+				x = getBottomRight().x;
+			} else if (point & LEFT) {
+				y = line.src.y + (line.dest.y - line.src.y) * (getTopLeft().x - line.src.x) / (line.dest.x - line.src.x);
+				x = getTopLeft().x;
+			}
+
+			if (point == endPoint1) {
+				line.src.x = x;
+				line.src.y = y;
+				endPoint1 = computeEndpoint(line.src);
+			} else {
+				line.dest.x = x;
+				line.dest.y = y;
+				endPoint2 = computeEndpoint(line.dest);
+			}
+		}
+		if (valid) {
+			lines.push_back(line);
+		}
+	}
+}
+
+void Window::polygonClipping(Polygon P) {
+	for(int j=0; j<P.e.size()-1; j++) {
+		lineClipping(Line(Point(P.e[j].x,P.e[j].y),Point(P.e[j+1].x,P.e[j+1].y)));
+	}
 }

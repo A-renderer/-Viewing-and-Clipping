@@ -201,20 +201,20 @@ void Polygon::scale(float size) {
 
 void Polygon::zoomIn(float k){
 	int i;
-	int midX = getMidX();
-	int midY = getMidY();
+	float midX = getMidX();
+	float midY = getMidY();
 
 	for(i=0; i<e.size(); i++) {
 		e[i].x = (e[i].x - midX) * k + midX;
 		e[i].y = (e[i].y - midY) * k + midY;
 	}
 }
-void Window::zoomOut(float k){
+void Polygon::zoomOut(float k){
 	int i;
-	int midX = getMidX();
-	int midY = getMidY();
+	float midX = getMidX();
+	float midY = getMidY();
 
-	for(i=0;i<e.size();i++) {
+	for(i=0; i<e.size(); i++) {
 		e[i].x = (e[i].x - midX) / k + midX;
 		e[i].y = (e[i].y - midY) / k + midY;
 	}
