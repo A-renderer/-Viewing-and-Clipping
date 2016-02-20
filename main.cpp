@@ -46,13 +46,38 @@ Polygon matrixToPolygon(int object[][2], int col) {
 	return Polygon(points);
 }
 
+Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
+Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
+
 void drawMap() {
-	//sumatra
-	Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
 	FB.drawPolygon(p_sumatra,255,255,0,0);
+	FB.drawPolygon(p_kalimantan,255,255,0,0);
 }
 
 int main() {
+	map.push_back(p_sumatra);
+	map.push_back(p_kalimantan);
+
+	system("clear");
+
+	FB.drawLine(Point(0,0), Point(0,400), 255, 255, 0,0);
+	FB.drawLine(Point(0,0), Point(599,0), 255, 255, 0,0);
+	FB.drawLine(Point(599,0), Point(599,400), 255, 255, 0,0);
+	FB.drawLine(Point(0,400), Point(599,400), 255, 255, 0,0);
+
 	drawMap();
+
+	while(!quit){
+		if(kbhit()){
+			key=getchar();
+			//PANGGIL FUNGSI UNTUK REDRAW MOVEMENT
+		}
+		else {
+			FB.drawWindow(window,0,250,250,0);
+		}
+	}
+
+	system("clear");
+
 	return 0;
 }
