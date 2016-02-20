@@ -1,5 +1,6 @@
 #include "Polygon.h"
 #include "Line.h"
+#include "Window.h"
 
 class FrameBuffer {
 public:
