@@ -18,7 +18,7 @@ Point Window::getTopLeft() {
 	return square.e[0];
 }
 
-Point getTopRight() {
+Point Window::getTopRight() {
 	return square.e[1];
 }
 
@@ -26,6 +26,26 @@ Point Window::getBottomRight() {
 	return square.e[2];
 }
 
-Point getBottomLeft() {
+Point Window::getBottomLeft() {
 	return square.e[3];
+}
+
+int Window::computeEndpoint(Point P) {
+	int result = INSIDE;
+ 
+	if (P.x < getTopLeft().x) {
+		result = LEFT;
+	}
+	else if (P.x > getBottomRight().x)  {
+		result = RIGHT;
+	}
+
+	if (P.y < getTopLeft().y) {
+		result = TOP;
+	}
+	else if (P.y > getBottomRight().y) {
+		result = BOTTOM;
+	}
+ 
+	return result;
 }

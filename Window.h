@@ -22,6 +22,7 @@ class Window {
 		Point getTopRight();
 		Point getBottomRight();
 		Point getBottomLeft();
+		int computeEndpoint(Point P)
 };
 
 #endif
