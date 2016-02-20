@@ -1,6 +1,7 @@
 #include "Polygon.h"
 #include "Line.h"
 #include "Window.h"
+#include "View.h"
 
 class FrameBuffer {
 public:
@@ -279,6 +280,14 @@ public:
 
 	void drawWindow(Window w, int r, int g, int b, int t){
 		drawPolygon(w.square,r,g,b,t);
+	}
+
+	void drawView(View v, int r, int g, int b, int t) {
+		if(!v.lines.empty()) {
+			for(int i=0; i<v.lines.size(); i++) {
+				drawLine(v.lines[i].src, v.lines[i].dest, r, g, b, t);
+			}	
+		}
 	}
 
 private:

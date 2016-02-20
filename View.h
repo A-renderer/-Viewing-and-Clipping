@@ -9,6 +9,7 @@ class View {
 		Point P1; //top left
 		Point P2; //bottom right
 		vector<Line> lines;
+		Polygon pol;
 
 		View();
 		View(Point P1, Point P2);

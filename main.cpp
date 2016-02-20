@@ -46,14 +46,50 @@ Polygon matrixToPolygon(int object[][2], int col) {
 	return Polygon(points);
 }
 
+
+View view;
 Polygon map_border = matrixToPolygon(border,sizeof(border)/sizeof(*border));
 Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
 Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
 
+
 void drawMap() {
 	FB.drawPolygon(map_border,0, 255, 255,0);
-	FB.drawPolygon(p_sumatra,255,255,0,0);
-	FB.drawPolygon(p_kalimantan,255,255,0,0);
+	FB.drawPolygon(p_sumatra,0,255,255,0);
+	FB.drawPolygon(p_kalimantan,0,255,255,0);
+}
+
+void redraw() { //untuk redraw view
+	vector<Polygon> temp;
+	for(int i=0;i<map.size();i++) {
+		int j=0;
+		bool found = false;
+		while(j<map[i].e.size() && !found) {
+			if(not(map[i].e[j].x<window.getTopLeft().x || map[i].e[j].y<window.getTopLeft().y 
+				|| map[i].e[j].y>window.getBottomRight().y || map[i].e[j].x>window.getBottomRight().x)) {
+				found = true;
+				temp.push_back(map[i]);
+			}
+			j++;
+		}
+	}
+
+	if(!window.lines.empty()) {
+		//FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
+	}
+
+	if(!temp.empty()) {
+		cout << "map ga kosong";
+		window.clipAllPolygon(temp);
+		if(!window.lines.empty()) {
+			cout << "lines adaaaa";
+			view.setViewLines(window);
+			FB.drawView(view,0,250,250,0);	
+			view.lines.clear();
+			window.lines.clear();
+			temp.clear();
+		}	
+	}
 }
 
 void move(int key) {
@@ -67,8 +103,11 @@ void move(int key) {
 	//menggambar ulang peta
 	drawMap();
 
-	//menggambar ulang window
-	//FB.drawWindow(window,250,250,250,0);
+	//menggambar ulang window & view
+	FB.drawPolygon(view.pol,255,255,255,0);
+	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
+	redraw();
+	FB.drawWindow(window,255,255,255,0);
 }
 
 int main() {
@@ -78,18 +117,21 @@ int main() {
 	system("clear");
 
 	drawMap();
+	FB.drawPolygon(view.pol,255,255,255,0);
+	FB.drawWindow(window,255,255,255,0);
+	redraw();
 
-	while(!quit){
+	/*while(!quit){
 		if(kbhit()){
 			key=getchar();
 			//PANGGIL FUNGSI UNTUK REDRAW MOVEMENT
+			//move();
+		} else {
+			redraw();
 		}
-		else {
-			//FB.drawWindow(window,250,250,250,0);
-		}
-	}
+	}*/
 
-	system("clear");
+	//system("clear");
 
 	return 0;
 }
