@@ -49,11 +49,14 @@ Polygon matrixToPolygon(int object[][2], int col) {
 Polygon map_border = matrixToPolygon(border,sizeof(border)/sizeof(*border));
 Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
 Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
+Polygon p_sulawesi = matrixToPolygon(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
 
 void drawMap() {
 	FB.drawPolygon(map_border,0, 255, 255,0);
 	FB.drawPolygon(p_sumatra,255,255,0,0);
 	FB.drawPolygon(p_kalimantan,255,255,0,0);
+	p_sulawesi.scale(2);
+	FB.drawPolygon(p_sulawesi,255,255,0,0);
 }
 
 void move(int key) {
