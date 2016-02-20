@@ -276,6 +276,10 @@ public:
 		}
 	}
 
+	void drawWindow(Window w, int r, int g, int b, int t){
+		drawPolygon(w.square,r,g,b,t);
+	}
+
 private:
 	struct fb_var_screeninfo vinfo;
 	struct fb_fix_screeninfo finfo;
