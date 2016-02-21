@@ -12,6 +12,43 @@ vector<Polygon> map;
 Window window;
 int key;
 
+int kbhit(void);
+Polygon matrixToPolygon(int object[][2], int col);
+void drawMap();
+void redraw();
+void move(int key);
+
+View view;
+Polygon map_border = matrixToPolygon(border,sizeof(border)/sizeof(*border));
+Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
+Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
+Polygon p_sulawesi = matrixToPolygon(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
+
+int main() {
+	map.push_back(p_sumatra);
+	map.push_back(p_kalimantan);
+	map.push_back(p_sulawesi);
+
+	system("clear");
+
+	drawMap();
+	FB.drawPolygon(view.pol,255,255,255,0);
+	FB.drawWindow(window,255,255,255,0);
+	redraw();
+
+	while(!quit){
+		if(kbhit()){
+			key=getchar();
+			//PANGGIL FUNGSI UNTUK REDRAW MOVEMENT
+			move(key);
+		}
+	}
+
+	//system("clear");
+
+	return 0;
+}
+
 int kbhit(void) {
 	struct termios oldt, newt;
 	int ch;
@@ -46,19 +83,10 @@ Polygon matrixToPolygon(int object[][2], int col) {
 	return Polygon(points);
 }
 
-
-View view;
-Polygon map_border = matrixToPolygon(border,sizeof(border)/sizeof(*border));
-Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
-Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
-Polygon p_sulawesi = matrixToPolygon(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
-
-
 void drawMap() {
 	FB.drawPolygon(map_border,0, 255, 255,0);
 	FB.drawPolygon(p_sumatra,255,255,0,0);
 	FB.drawPolygon(p_kalimantan,255,255,0,0);
-	p_sulawesi.scale(2);
 	FB.drawPolygon(p_sulawesi,255,255,0,0);
 }
 
@@ -78,14 +106,12 @@ void redraw() { //untuk redraw view
 	}
 
 	if(!window.lines.empty()) {
-		//FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
+		FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
 	}
 
 	if(!temp.empty()) {
-		cout << "map ga kosong";
 		window.clipAllPolygon(temp);
 		if(!window.lines.empty()) {
-			cout << "lines adaaaa";
 			view.setViewLines(window);
 			FB.drawView(view,0,250,250,0);	
 			view.lines.clear();
@@ -96,45 +122,46 @@ void redraw() { //untuk redraw view
 }
 
 void move(int key) {
-	//IF KEY LALALALAAAAAA (up, down, right, left, zoom in, zoom out)
-	/*else*/if(key=='q'){
+	system("clear");
+	//int border[][2]={{0,0},{599,0},{599,400},{0,400}};
+	if((window.square.e[0].y>0)&&(window.square.e[0].x>0)&&
+		(window.square.e[1].x<599)&&(window.square.e[1].y<400)) {
+		if(key=='w'){
+			window.square.e[0] = Point(window.square.e[0].x,window.square.e[0].y-=10);
+			window.square.e[1] = Point(window.square.e[1].x,window.square.e[1].y-=10);
+			window.square.e[2] = Point(window.square.e[2].x,window.square.e[2].y-=10);
+			window.square.e[3] = Point(window.square.e[3].x,window.square.e[3].y-=10);
+		}
+		else if(key=='a'){
+			window.square.e[0] = Point(window.square.e[0].x-=10,window.square.e[0].y);
+			window.square.e[1] = Point(window.square.e[1].x-=10,window.square.e[1].y);
+			window.square.e[2] = Point(window.square.e[2].x-=10,window.square.e[2].y);
+			window.square.e[3] = Point(window.square.e[3].x-=10,window.square.e[3].y);
+		}
+		else if(key=='d'){
+			window.square.e[0] = Point(window.square.e[0].x+=10,window.square.e[0].y);
+			window.square.e[1] = Point(window.square.e[1].x+=10,window.square.e[1].y);
+			window.square.e[2] = Point(window.square.e[2].x+=10,window.square.e[2].y);
+			window.square.e[3] = Point(window.square.e[3].x+=10,window.square.e[3].y);
+		}
+		else if(key=='x'){
+			window.square.e[0] = Point(window.square.e[0].x,window.square.e[0].y+=10);
+			window.square.e[1] = Point(window.square.e[1].x,window.square.e[1].y+=10);
+			window.square.e[2] = Point(window.square.e[2].x,window.square.e[2].y+=10);
+			window.square.e[3] = Point(window.square.e[3].x,window.square.e[3].y+=10);
+		}
+	}
+	if(key=='q') {
+		// OTHER KEYS
 		quit=true;
 		system("clear");
 	}
-	system("clear");
-
 	//menggambar ulang peta
 	drawMap();
 
 	//menggambar ulang window & view
 	FB.drawPolygon(view.pol,255,255,255,0);
 	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
-	redraw();
-	FB.drawWindow(window,255,255,255,0);
-}
-
-int main() {
-	map.push_back(p_sumatra);
-	map.push_back(p_kalimantan);
-
-	system("clear");
-
-	drawMap();
-	FB.drawPolygon(view.pol,255,255,255,0);
 	FB.drawWindow(window,255,255,255,0);
 	redraw();
-
-	/*while(!quit){
-		if(kbhit()){
-			key=getchar();
-			//PANGGIL FUNGSI UNTUK REDRAW MOVEMENT
-			//move();
-		} else {
-			redraw();
-		}
-	}*/
-
-	//system("clear");
-
-	return 0;
 }
