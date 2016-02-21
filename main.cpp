@@ -51,6 +51,7 @@ int main() {
 	system("clear");
 
 	drawMap();
+	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
 	FB.drawPolygon(view.pol,255,255,255,0);
 	FB.drawWindow(window,255,255,255,0);
 	redraw();
@@ -104,11 +105,12 @@ Polygon matrixToPolygon(int object[][2], int col) {
 
 void drawMap() {
 	FB.drawPolygon(map_border,0, 255, 255,0);
-	FB.drawPolygon(p_sumatra,255,255,0,0);
-	FB.drawPolygon(p_jawa,255,255,0,0);
-	FB.drawPolygon(p_kalimantan,255,255,0,0);
-	FB.drawPolygon(p_sulawesi,255,255,0,0);
-	FB.drawPolygon(p_papua,255,255,0,0);
+	FB.rasterScan(map_border,135, 206, 235, 0);
+	FB.drawPolygon(p_sumatra,0,100,0,0);
+	FB.drawPolygon(p_jawa,0,100,0,0);
+	FB.drawPolygon(p_kalimantan,0,100,0,0);
+	FB.drawPolygon(p_sulawesi,0,100,0,0);
+	FB.drawPolygon(p_papua,0,100,0,0);
 }
 
 void redraw() { //untuk redraw view
@@ -134,7 +136,7 @@ void redraw() { //untuk redraw view
 		window.clipAllPolygon(temp);
 		if(!window.lines.empty()) {
 			view.setViewLines(window);
-			FB.drawView(view,0,250,250,0);	
+			FB.drawView(view,0,100,0,0);	
 			view.lines.clear();
 			window.lines.clear();
 			temp.clear();
@@ -187,8 +189,8 @@ void move(int key) {
 	drawMap();
 
 	//menggambar ulang window & view
-	FB.drawPolygon(view.pol,255,255,255,0);
 	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
+	FB.drawPolygon(view.pol,255,255,255,0);	
 	FB.drawWindow(window,255,255,255,0);
 	redraw();
 }
