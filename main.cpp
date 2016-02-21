@@ -24,25 +24,26 @@ Polygon p_sumatra = matrixToPolygon(sumatra,sizeof(sumatra)/sizeof(*sumatra));
 Polygon p_kalimantan = matrixToPolygon(kalimantan,sizeof(kalimantan)/sizeof(*kalimantan));
 Polygon p_sulawesi = matrixToPolygon(sulawesi,sizeof(sulawesi)/sizeof(*sulawesi));
 Polygon p_papua = matrixToPolygon(papua,sizeof(papua)/sizeof(*papua));
-Polygon p_jawa = matrixToPolygon(papua,sizeof(jawa)/sizeof(*jawa));
+Polygon p_jawa = matrixToPolygon(jawa,sizeof(jawa)/sizeof(*jawa));
 
 int main() {
 	// Adjust positions of the islands
-	p_sumatra.moveDown(20);
-	//p_jawa.moveDown(200);
-	//p_jawa.moveRight(100);
+	p_sumatra.moveDown(10);
+	p_jawa.scale(1.8);
+	p_jawa.moveDown(265);
+	p_jawa.moveRight(170);
 	p_kalimantan.scale(1.55);
 	p_kalimantan.moveRight(150);
-	p_kalimantan.moveDown(40);
+	p_kalimantan.moveDown(50);
 	p_sulawesi.scale(1.25);
 	p_sulawesi.moveRight(320);
-	p_sulawesi.moveDown(90);
+	p_sulawesi.moveDown(100);
 	p_papua.scale(2);
 	p_papua.moveRight(430);
-	p_papua.moveDown(110);
+	p_papua.moveDown(160);
 
 	map.push_back(p_sumatra);
-	//map.push_back(p_jawa);
+	map.push_back(p_jawa);
 	map.push_back(p_kalimantan);
 	map.push_back(p_sulawesi);
 	map.push_back(p_papua);
@@ -104,7 +105,7 @@ Polygon matrixToPolygon(int object[][2], int col) {
 void drawMap() {
 	FB.drawPolygon(map_border,0, 255, 255,0);
 	FB.drawPolygon(p_sumatra,255,255,0,0);
-	//FB.drawPolygon(p_jawa,255,255,0,0);
+	FB.drawPolygon(p_jawa,255,255,0,0);
 	FB.drawPolygon(p_kalimantan,255,255,0,0);
 	FB.drawPolygon(p_sulawesi,255,255,0,0);
 	FB.drawPolygon(p_papua,255,255,0,0);
