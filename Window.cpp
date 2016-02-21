@@ -3,9 +3,9 @@
 Window::Window() {
 	vector<Point> e;
 	e.push_back(Point(2,2));
-	e.push_back(Point(2,152));
-	e.push_back(Point(152,152));
-	e.push_back(Point(152,2));
+	e.push_back(Point(2,252));
+	e.push_back(Point(252,252));
+	e.push_back(Point(252,2));
 
 	square = Polygon(e);
 }
@@ -50,6 +50,8 @@ int Window::computeEndpoint(Point P) {
 	return result;
 }
 
+
+
 void Window::lineClipping(Line line) {
 	int endPoint1 = computeEndpoint(line.src);
 	int endPoint2 = computeEndpoint(line.dest);
@@ -92,6 +94,26 @@ void Window::lineClipping(Line line) {
 	}
 	if (valid) {
 		lines.push_back(line);
+	}
+}
+
+void Window::zoomIn(float k) {
+	int midX = getMidPoint().x;
+	int midY = getMidPoint().y;
+
+	for(int i=0; i<square.e.size(); i++) {
+		square.e[i].x = (square.e[i].x - midX) * k + midX;
+		square.e[i].y = (square.e[i].y - midY) * k + midY;
+	}
+}
+
+void Window::zoomOut(float k) {
+	int midX = getMidPoint().x;
+	int midY = getMidPoint().y;
+
+	for(int i=0; i<square.e.size(); i++) {
+		square.e[i].x = (square.e[i].x - midX) / k + midX;
+		square.e[i].y = (square.e[i].y - midY) / k + midY;
 	}
 }
 

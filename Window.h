@@ -26,6 +26,8 @@ class Window {
 		void lineClipping(Line line);
 		void polygonClipping(Polygon P);
 		void clipAllPolygon(vector<Polygon> pols);
+		void zoomIn(float k);
+		void zoomOut(float k);
 };
 
 #endif
