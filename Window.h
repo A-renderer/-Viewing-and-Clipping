@@ -28,6 +28,10 @@ class Window {
 		void clipAllPolygon(vector<Polygon> pols);
 		void zoomIn(float k);
 		void zoomOut(float k);
+		void moveUp(float k);
+		void moveDown(float k);
+		void moveRight(float k);
+		void moveLeft(float k);
 };
 
 #endif

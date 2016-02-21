@@ -141,34 +141,36 @@ void move(int key) {
 	//int border[][2]={{0,0},{599,0},{599,400},{0,400}};
 	int i = 0;
 	if(key=='w'){
-		while(i < 10 && window.square[0].y>0) {
+		while(i < 10 && window.square.getMinY() > 0) {
 			window.moveUp(1);
 			i++;
 		}
 	}
 	else if(key=='a'){
-		while(i < 10 && window.square[0].x>0) {
+		while(i < 10 && window.square.getMinX() > 0) {
 			window.moveLeft(1);
 			i++;
 		}
 	}
 	else if(key=='d'){
-		while(i < 10 && window.square[1].x<599) {
+		while(i < 10 && window.square.getMaxX() < 599) {
 			window.moveRight(1);
 			i++;
 		}
 	}
 	else if(key=='x'){
-		while(i < 10 && window.square[2].y>400) {
+		while(i < 10 && window.square.getMaxY() < 400) {
 			window.moveDown(1);
 			i++;
 		}
 	}
 	else if(key=='m') {
-		window.zoomOut(1.1);
+		if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+			window.zoomOut(1.01);
 	}
 	else if(key=='k') {
-		window.zoomIn(1.1);
+		if (window.square.getMinY()>0 && window.square.getMinX() > 0 && window.square.getMaxX() < 599 && window.square.getMaxY() < 400)
+			window.zoomIn(1.01);
 	}
 	else if(key=='q') {
 		// OTHER KEYS
