@@ -150,6 +150,12 @@ void move(int key) {
 			window.square.e[2] = Point(window.square.e[2].x,window.square.e[2].y+=10);
 			window.square.e[3] = Point(window.square.e[3].x,window.square.e[3].y+=10);
 		}
+		else if(key=='m') {
+			window.zoomOut(1.1);
+		}
+		else if(key=='k') {
+			window.zoomIn(1.1);
+		}
 	}
 	if(key=='q') {
 		// OTHER KEYS
