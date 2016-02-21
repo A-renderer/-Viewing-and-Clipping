@@ -226,7 +226,7 @@ public:
 	        }
 	    }
 	}
-	void rasterScan(Polygon pol, int r, int g, int b, int a) {
+	void rasterScan(Polygon pol, int r, int g, int b, int a, int start, int finish) {
 		drawPolygon(pol, r, g, b, a);
 
 		int n = pol.n;
@@ -250,7 +250,7 @@ public:
 		}
 
 		vector<Line> lines;
-		for (int y=0; y<600; y++) { //600 itu batas pixel paling bawah, masi ngasal wkwkwk
+		for (int y=start; y<finish; y++) { //600 itu batas pixel paling bawah, masi ngasal wkwkwk
 			int k = 0;
 			// Cari titik perpotongan
 			for (int i=0; i<n; i++) {

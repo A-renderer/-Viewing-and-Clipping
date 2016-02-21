@@ -104,18 +104,15 @@ Polygon matrixToPolygon(int object[][2], int col) {
 }
 
 void drawMap() {
-	FB.drawPolygon(map_border,0, 255, 255,0);
-	FB.rasterScan(map_border,135, 206, 235, 0);
-	FB.drawPolygon(p_sumatra,0,100,0,0);
-	//FB.rasterScan(p_sumatra,0, 100, 0, 0);
+	//FUNGSI RASTER SCAN UDA MANGGIL DRAWPOLYGON JD GA PERLU 2 KALI
+	FB.rasterScan(map_border,135, 206, 235, 0, 0, 599);
+	FB.rasterScan(p_sumatra,0, 100, 0, 0, p_sumatra.getMinY(), p_sumatra.getMaxY());
 	FB.drawPolygon(p_jawa,0,100,0,0);
-	//FB.rasterScan(p_jawa,0, 100, 0, 0);
-	FB.drawPolygon(p_kalimantan,0,100,0,0);
-	//FB.rasterScan(p_kalimantan,0, 100, 0, 0);
-	FB.drawPolygon(p_sulawesi,0,100,0,0);
-	//FB.rasterScan(p_sulawesi,0, 100, 0, 0);
-	FB.drawPolygon(p_papua,0,100,0,0);
-	//FB.rasterScan(p_papua,0, 100, 0, 0);
+	//FB.rasterScan(p_ja	FB.drawPolygon(p_kalimantan,0,100,0,0);wa,0, 100, 0, 0, p_jawa.getMinY(), p_jawa.getMaxY());
+	FB.rasterScan(p_kalimantan,0, 100, 0, 0, p_kalimantan.getMinY(), p_kalimantan.getMaxY());
+	FB.rasterScan(p_sulawesi,0, 100, 0, 0, p_sulawesi.getMinY(), p_sulawesi.getMaxY());
+	//FB.drawPolygon(p_papua,0,100,0,0);
+	//FB.rasterScan(p_papua,0, 100, 0, 0, p_papua.getMinY(), p_papua.getMaxY());
 }
 
 void redraw() { //untuk redraw view
