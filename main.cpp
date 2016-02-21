@@ -166,7 +166,7 @@ void move(int key) {
 			i++;
 		}
 	}
-	else if(key=='x'){
+	else if(key=='s'){
 		while(i < 10 && window.square.getMaxY() < 400) {
 			window.moveDown(1);
 			i++;
