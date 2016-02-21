@@ -255,8 +255,10 @@ public:
 			// Cari titik perpotongan
 			for (int i=0; i<n; i++) {
 				if (pol.e[i].y <= y && pol.e[i+1].y > y || pol.e[i+1].y <= y && pol.e[i].y > y) {
-					line[k] = (int) (pol.e[i].x + slope[i] * (y - pol.e[i].y));
-					k++;
+					if (!(pol.e[i-1].y < pol.e[i].y && pol.e[i+1].y < pol.e[i].y) || !(pol.e[i-1].y > pol.e[i].y && pol.e[i+1].y > pol.e[i].y)){
+						line[k] = (int) (pol.e[i].x + slope[i] * (y - pol.e[i].y));
+						k++;
+					}
 				}
 			}
 

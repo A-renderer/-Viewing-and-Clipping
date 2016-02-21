@@ -107,10 +107,15 @@ void drawMap() {
 	FB.drawPolygon(map_border,0, 255, 255,0);
 	FB.rasterScan(map_border,135, 206, 235, 0);
 	FB.drawPolygon(p_sumatra,0,100,0,0);
+	//FB.rasterScan(p_sumatra,0, 100, 0, 0);
 	FB.drawPolygon(p_jawa,0,100,0,0);
+	//FB.rasterScan(p_jawa,0, 100, 0, 0);
 	FB.drawPolygon(p_kalimantan,0,100,0,0);
+	//FB.rasterScan(p_kalimantan,0, 100, 0, 0);
 	FB.drawPolygon(p_sulawesi,0,100,0,0);
+	//FB.rasterScan(p_sulawesi,0, 100, 0, 0);
 	FB.drawPolygon(p_papua,0,100,0,0);
+	//FB.rasterScan(p_papua,0, 100, 0, 0);
 }
 
 void redraw() { //untuk redraw view
@@ -145,7 +150,7 @@ void redraw() { //untuk redraw view
 }
 
 void move(int key) {
-	system("clear");
+	//system("clear");
 	//int border[][2]={{0,0},{599,0},{599,400},{0,400}};
 	int i = 0;
 	if(key=='w'){
@@ -185,12 +190,15 @@ void move(int key) {
 		quit=true;
 		system("clear");
 	}
-	//menggambar ulang peta
-	drawMap();
 
-	//menggambar ulang window & view
-	FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
-	FB.drawPolygon(view.pol,255,255,255,0);	
-	FB.drawWindow(window,255,255,255,0);
-	redraw();
+	if (key=='a' || key=='s' || key=='d' || key=='w' || key=='k' || key=='m'){
+		//menggambar ulang peta
+		drawMap();
+
+		//menggambar ulang window & view
+		FB.cleararea(view.P1.x,view.P1.y,view.P2.x,view.P2.y);
+		FB.drawPolygon(view.pol,255,255,255,0);	
+		FB.drawWindow(window,255,255,255,0);
+		redraw();
+	}
 }

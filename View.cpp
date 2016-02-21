@@ -1,14 +1,14 @@
 #include "View.h"
 
 View::View() {
-	P1 = Point(620,10);
-	P2 = Point(770,160);
+	P1 = Point(620,1);
+	P2 = Point(1020,401);
 
 	vector<Point> e;
-	e.push_back(Point(620,10));
-	e.push_back(Point(770,10));
-	e.push_back(Point(770,160));
-	e.push_back(Point(620,160));
+	e.push_back(Point(620,1));
+	e.push_back(Point(1020,1));
+	e.push_back(Point(1020,401));
+	e.push_back(Point(620,401));
 
 	pol = Polygon(e);
 }
