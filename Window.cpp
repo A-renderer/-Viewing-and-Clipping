@@ -132,3 +132,31 @@ void Window::clipAllPolygon(vector<Polygon> pols) {
 		}
 	}
 }
+
+void Window::moveUp(float k) {
+	square.e[0] = Point(window.square.e[0].x,window.square.e[0].y-=k);
+	square.e[1] = Point(window.square.e[1].x,window.square.e[1].y-=k);
+	square.e[2] = Point(window.square.e[2].x,window.square.e[2].y-=k);
+	square.e[3] = Point(window.square.e[3].x,window.square.e[3].y-=k);
+}
+
+void Window::moveDown(float k) {
+	square.e[0] = Point(window.square.e[0].x,window.square.e[0].y+=k);
+	square.e[1] = Point(window.square.e[1].x,window.square.e[1].y+=k);
+	square.e[2] = Point(window.square.e[2].x,window.square.e[2].y+=k);
+	square.e[3] = Point(window.square.e[3].x,window.square.e[3].y+=k);
+}
+
+void Window::moveLeft(float k) {
+	square.e[0] = Point(window.square.e[0].x-=k,window.square.e[0].y);
+	square.e[1] = Point(window.square.e[1].x-=k,window.square.e[1].y);
+	square.e[2] = Point(window.square.e[2].x-=k,window.square.e[2].y);
+	square.e[3] = Point(window.square.e[3].x-=k,window.square.e[3].y);
+}
+
+void Window::moveRight(float k) {
+	square.e[0] = Point(window.square.e[0].x+=k,window.square.e[0].y);
+	square.e[1] = Point(window.square.e[1].x+=k,window.square.e[1].y);
+	square.e[2] = Point(window.square.e[2].x+=k,window.square.e[2].y);
+	square.e[3] = Point(window.square.e[3].x+=k,window.square.e[3].y);
+}

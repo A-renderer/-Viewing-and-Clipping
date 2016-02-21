@@ -139,40 +139,38 @@ void redraw() { //untuk redraw view
 void move(int key) {
 	system("clear");
 	//int border[][2]={{0,0},{599,0},{599,400},{0,400}};
-	if((window.square.e[0].y>0)&&(window.square.e[0].x>0)&&
-		(window.square.e[1].x<599)&&(window.square.e[1].y<400)) {
-		if(key=='w'){
-			window.square.e[0] = Point(window.square.e[0].x,window.square.e[0].y-=10);
-			window.square.e[1] = Point(window.square.e[1].x,window.square.e[1].y-=10);
-			window.square.e[2] = Point(window.square.e[2].x,window.square.e[2].y-=10);
-			window.square.e[3] = Point(window.square.e[3].x,window.square.e[3].y-=10);
-		}
-		else if(key=='a'){
-			window.square.e[0] = Point(window.square.e[0].x-=10,window.square.e[0].y);
-			window.square.e[1] = Point(window.square.e[1].x-=10,window.square.e[1].y);
-			window.square.e[2] = Point(window.square.e[2].x-=10,window.square.e[2].y);
-			window.square.e[3] = Point(window.square.e[3].x-=10,window.square.e[3].y);
-		}
-		else if(key=='d'){
-			window.square.e[0] = Point(window.square.e[0].x+=10,window.square.e[0].y);
-			window.square.e[1] = Point(window.square.e[1].x+=10,window.square.e[1].y);
-			window.square.e[2] = Point(window.square.e[2].x+=10,window.square.e[2].y);
-			window.square.e[3] = Point(window.square.e[3].x+=10,window.square.e[3].y);
-		}
-		else if(key=='x'){
-			window.square.e[0] = Point(window.square.e[0].x,window.square.e[0].y+=10);
-			window.square.e[1] = Point(window.square.e[1].x,window.square.e[1].y+=10);
-			window.square.e[2] = Point(window.square.e[2].x,window.square.e[2].y+=10);
-			window.square.e[3] = Point(window.square.e[3].x,window.square.e[3].y+=10);
-		}
-		else if(key=='m') {
-			window.zoomOut(1.1);
-		}
-		else if(key=='k') {
-			window.zoomIn(1.1);
+	int i = 0;
+	if(key=='w'){
+		while(i < 10 && window.square[0].y>0) {
+			window.moveUp(1);
+			i++;
 		}
 	}
-	if(key=='q') {
+	else if(key=='a'){
+		while(i < 10 && window.square[0].x>0) {
+			window.moveLeft(1);
+			i++;
+		}
+	}
+	else if(key=='d'){
+		while(i < 10 && window.square[1].x<599) {
+			window.moveRight(1);
+			i++;
+		}
+	}
+	else if(key=='x'){
+		while(i < 10 && window.square[2].y>400) {
+			window.moveDown(1);
+			i++;
+		}
+	}
+	else if(key=='m') {
+		window.zoomOut(1.1);
+	}
+	else if(key=='k') {
+		window.zoomIn(1.1);
+	}
+	else if(key=='q') {
 		// OTHER KEYS
 		quit=true;
 		system("clear");
