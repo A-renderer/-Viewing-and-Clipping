@@ -226,10 +226,11 @@ public:
 	        }
 	    }
 	}
+	
 	void rasterScan(Polygon pol, int r, int g, int b, int a, int start, int finish) {
 		drawPolygon(pol, r, g, b, a);
 
-		int n = pol.n;
+		int n = pol.e.size();
 
 		float slope[n];
 		int line[n];
@@ -237,6 +238,73 @@ public:
 		for (int i=0; i<n; i++) {
 			int dx = pol.e[i+1].x - pol.e[i].x;
 			int dy = pol.e[i+1].y - pol.e[i].y;
+
+			if (i==n-1) {
+				dx = pol.e[0].x - pol.e[i].x;
+				dy = pol.e[0].y - pol.e[i].y;
+			}
+
+			if (dy == 0) {
+				slope[i] = 1;
+			}
+			if (dx == 0) {
+				slope[i] = 0;
+			}
+			if (dx != 0 && dy != 0) {
+				slope[i] = (float) dx/dy;
+			}
+		}
+
+		vector<Line> lines;
+		for (int y=start; y<=finish; y++) { //600 itu batas pixel paling bawah, masi ngasal wkwkwk
+			int k = 0;
+			// Cari titik perpotongan
+			for (int i=0; i<n; i++) {
+				if (i==n-1) {
+					if (pol.e[i].y <= y && pol.e[0].y > y || pol.e[0].y <= y && pol.e[i].y > y) {
+						//if (!(pol.e[i-1].y < pol.e[i].y && pol.e[i+1].y < pol.e[i].y) || !(pol.e[i-1].y > pol.e[i].y && pol.e[i+1].y > pol.e[i].y)){
+							line[k] = (int) (pol.e[i].x + slope[i] * (y - pol.e[i].y));
+							k++;
+						//}
+					}
+				} else {
+					if (pol.e[i].y <= y && pol.e[i+1].y > y || pol.e[i+1].y <= y && pol.e[i].y > y) {
+						//if (!(pol.e[i-1].y < pol.e[i].y && pol.e[i+1].y < pol.e[i].y) || !(pol.e[i-1].y > pol.e[i].y && pol.e[i+1].y > pol.e[i].y)){
+							line[k] = (int) (pol.e[i].x + slope[i] * (y - pol.e[i].y));
+							k++;
+						//}
+					}
+				}
+			}
+
+			//ngurutin line
+			for (int j=0; j<k-1; j++) {
+				for (int i=0; i<k-1; i++) {
+					if (line[i] > line[i+1]) {
+						int temp = line[i];
+						line[i] = line[i+1];
+						line[i+1] = temp;
+					}
+				}
+			}
+
+
+			for (int i=0; i<k; i+=2) {
+				drawLine(Point(line[i], y), Point(line[i+1], y), r, g, b, a);
+			}
+		}
+	}
+
+	void rasterView(View view, int r, int g, int b, int a, int start, int finish) {
+
+		int n = view.lines.size();
+
+		float slope[n];
+		int line[n];
+		int x,y;
+		for (int i=0; i<n; i++) {
+			int dx = view.lines[i].dest.x - view.lines[i].src.x;
+			int dy = view.lines[i].dest.y - view.lines[i].src.y;
 
 			if (dy == 0) {
 				slope[i] = 1;
@@ -254,11 +322,12 @@ public:
 			int k = 0;
 			// Cari titik perpotongan
 			for (int i=0; i<n; i++) {
-				if (pol.e[i].y <= y && pol.e[i+1].y > y || pol.e[i+1].y <= y && pol.e[i].y > y) {
-					if (!(pol.e[i-1].y < pol.e[i].y && pol.e[i+1].y < pol.e[i].y) || !(pol.e[i-1].y > pol.e[i].y && pol.e[i+1].y > pol.e[i].y)){
-						line[k] = (int) (pol.e[i].x + slope[i] * (y - pol.e[i].y));
+				if (view.lines[i].src.y <= y && view.lines[i].dest.y > y 
+					|| view.lines[i].dest.y <= y && view.lines[i].src.y > y) {
+
+						line[k] = (int) (view.lines[i].src.x + slope[i] * (y - view.lines[i].src.y));
 						k++;
-					}
+					
 				}
 			}
 
